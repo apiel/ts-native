@@ -1,7 +1,7 @@
 import { argv, cwd } from 'process';
 import { join } from 'path';
 import { log } from 'logol';
-import { readdirSync, copyFileSync } from 'fs';
+import { readdirSync, copyFileSync, rmdirSync } from 'fs';
 
 import { shell } from './shell';
 
@@ -30,6 +30,7 @@ async function start() {
         `-o ${binFile} main.c lib.c wasm-rt-impl.c`.split(' '),
         tmpFolder,
     );
+    rmdirSync(tmpFolder, { recursive: true });
 }
 
 function copyWasm() {
