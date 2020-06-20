@@ -10,10 +10,11 @@
     "url": "https://github.com/apiel/isomor"
   },
   "scripts": {
+    "get-wasm": "wget https://raw.githubusercontent.com/WebAssembly/wabt/master/wasm2c/wasm-rt-impl.c -P wasm/ && wget https://raw.githubusercontent.com/WebAssembly/wabt/master/wasm2c/wasm-rt-impl.h -P wasm/ && wget https://raw.githubusercontent.com/WebAssembly/wabt/master/wasm2c/wasm-rt.h -P wasm/",
     "prepublishOnly": "yarn build",
     "demo": "yarn start ./demo/index.ts",
     "start": "ts-node src/index.ts",
-    "prebuild": "rm -rf dist/",
+    "prebuild": "get-wasm && rm -rf dist/",
     "build": "tsc -p tsconfig.json && chmod +x dist/index.js"
   },
   "dependencies": {
