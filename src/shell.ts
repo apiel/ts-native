@@ -5,11 +5,12 @@ import { gray, yellow, red } from 'chalk';
 export function shell(
     command: string,
     args?: ReadonlyArray<string>,
+    cwd = process.cwd(),
     env?: NodeJS.ProcessEnv,
 ) {
     return new Promise<number>((resolve) => {
         const cmd = spawn(command, args, {
-            cwd: process.cwd(),
+            cwd,
             env: {
                 COLUMNS:
                     process.env.COLUMNS || process.stdout.columns.toString(),
@@ -23,8 +24,8 @@ export function shell(
         });
         cmd.stderr.on('data', (data) => {
             const dataStr = data.toString();
-            if (dataStr.indexOf('warning') === 0) {
-                process.stdout.write(yellow('warming') + dataStr.substring(7));
+            if (dataStr.indexOf('warning') !== -1) {
+                process.stdout.write(yellow(data.toString()));
             } else {
                 process.stdout.write(red(data.toString()));
             }

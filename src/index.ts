@@ -12,7 +12,9 @@ log('entryPoint:', entryPoint);
 const buildFolder = join(cwd(), 'build');
 const tmpFolder = join(buildFolder, 'tmp');
 const wasmFile = join(tmpFolder, 'lib.wasm');
+const cFile = join(tmpFolder, 'lib.c');
 const wasmFolder = join(__dirname, '..', 'wasm');
+const binFile = join(buildFolder, 'main');
 
 start();
 
@@ -21,12 +23,18 @@ async function start() {
         'asc',
         `${entryPoint} -b ${wasmFile} --sourceMap --optimize`.split(' '),
     );
+    await shell('wasm2c', `${wasmFile} -o ${cFile}`.split(' '));
     copyWasm();
+    await shell(
+        'cc',
+        `-o ${binFile} main.c lib.c wasm-rt-impl.c`.split(' '),
+        tmpFolder,
+    );
 }
 
 function copyWasm() {
     const files = readdirSync(wasmFolder);
-    files.forEach(file => {
+    files.forEach((file) => {
         copyFileSync(join(wasmFolder, file), join(tmpFolder, file));
     });
 }
