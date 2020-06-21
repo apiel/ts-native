@@ -1,1 +1,2 @@
+- need docker
 - ? xxd -i build/tmp/lib.wasm
