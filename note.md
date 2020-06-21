@@ -1,0 +1,1 @@
+- ? xxd -i build/tmp/lib.wasm
