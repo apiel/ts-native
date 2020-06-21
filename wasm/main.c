@@ -23,22 +23,18 @@ void core_abc(u32 a)
 void (*Z_indexZ_coreZ2EprintZ_vii)(u32, u32);
 void core_print(u32 ptr, u32 len)
 {
-  printf("print ptr %u len %u\n", ptr, len);
   const uint8_t *buf = (u8 *)mem->data + (u32)(ptr);
-  printf("str %s\n", buf);
-  // const uint8_t * buf = m3ApiOffsetToPtr(ptr);
+  printf("%s", buf);
 }
-
-// wasm_rt_memory_t (*WASM_RT_ADD_PREFIX(Z_memory));
 
 int main(int argc, char **argv)
 {
   init();
+  mem = WASM_RT_ADD_PREFIX(Z_memory);
+
   Z_envZ_abortZ_viiii = &env_abort;
   Z_indexZ_coreZ2EabcZ_vi = &core_abc;
   Z_indexZ_coreZ2EprintZ_vii = &core_print;
-
-  mem = WASM_RT_ADD_PREFIX(Z_memory);
 
   u32 result = Z_mainZ_iii(1, 4);
   printf("res %u\n", result);
