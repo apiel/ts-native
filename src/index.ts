@@ -30,7 +30,9 @@ async function start() {
         `-o ${binFile} main.c lib.c wasm-rt-impl.c`.split(' '),
         tmpFolder,
     );
-    // rmdirSync(tmpFolder, { recursive: true });
+    if (!argv.includes('--skip-rm')) {
+        rmdirSync(tmpFolder, { recursive: true });
+    }
 }
 
 function copyWasm() {
