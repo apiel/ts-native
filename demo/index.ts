@@ -1,21 +1,8 @@
-// The entry file of your WebAssembly module.
-
-declare namespace core {
-    function abc(val: i32): i32;
-    function print(ptr: usize, len: i32): void;
-}
-
-function print(str: string): void {
-    core.print(
-        changetype<usize>(String.UTF8.encode(str)),
-        String.UTF8.byteLength(str),
-    );
-}
+import { print } from '../std/io';
+import { cwd } from '../std/core';
 
 export function main(a: i32, b: i32): i32 {
-    const abc = core.abc(a);
-    const str = changetype<string>(String.UTF8.decodeUnsafe(abc, 12));
-    print('try ' + str + '\n');
+    print('cwd ' + cwd() + '\n');
     print(`Hello world\n`);
     return a + b;
 }
