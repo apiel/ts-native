@@ -24,10 +24,6 @@ u32 core_abc(u32 a)
   u32 ptr = WASM_RT_ADD_PREFIX(Z___allocZ_iii)(len << 1, 1);
 
   uint8_t *buf = (u8 *)mem->data + (u32)(ptr);
-  // buf[0] = 'R';
-  // buf[1] = 'E';
-  // buf[2] = 'T';
-  // buf[3] = '\0';
   strcpy(buf, ret);
   // return ptr;
 
