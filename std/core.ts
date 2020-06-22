@@ -11,9 +11,10 @@ declare namespace core {
 //     return null;
 // }
 export function cwd(): string {
-    const ptr = core.cwd();
+    let ptr = core.cwd();
     if (ptr) {
-        const len = 12; // need len to fix
+        let len = <u32>load<u8>(ptr);
+        ptr++;
         return changetype<string>(String.UTF8.decodeUnsafe(ptr, len));
     }
     return '';
