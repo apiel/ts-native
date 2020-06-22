@@ -20,9 +20,7 @@ u32 core_abc(u32 a)
   printf("abc %u\n", a);
 
   char * ret = "RET core_abc";
-  // &(WASM_RT_ADD_PREFIX(Z___allocZ_iii)
-  // __retain(__allocString(aStr))
-  int len = strlen(ret);
+  int len = strlen(ret) + 1;
   u32 ptr = WASM_RT_ADD_PREFIX(Z___allocZ_iii)(len << 1, 1);
 
   uint8_t *buf = (u8 *)mem->data + (u32)(ptr);
@@ -43,7 +41,7 @@ void (*Z_indexZ_coreZ2EprintZ_vii)(u32, u32);
 void core_print(u32 ptr, u32 len)
 {
   const uint8_t *buf = (u8 *)mem->data + (u32)(ptr);
-  printf("%s", buf);
+  printf("%.*s", len, buf);
 }
 
 int main(int argc, char **argv)

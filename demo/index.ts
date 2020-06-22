@@ -14,11 +14,8 @@ function print(str: string): void {
 
 export function main(a: i32, b: i32): i32 {
     const abc = core.abc(a);
-    print('abc ret ' + abc.toString() + '\n');
     const str = changetype<string>(String.UTF8.decodeUnsafe(abc, 12));
     print('try ' + str + '\n');
-    print('\n');
-    // core.print(`Hello world\n`);
     print(`Hello world\n`);
     return a + b;
 }
