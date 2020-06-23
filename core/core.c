@@ -1,16 +1,9 @@
-#include <stdlib.h> // abort
 #include <string.h> // strlen
 #include <unistd.h> // cwd
 #include <linux/limits.h> // cwd
 
 #include "./lib.h"
 #include "./mem.h"
-
-void (*Z_envZ_abortZ_viiii)(u32, u32, u32, u32);
-void env_abort(u32 a, u32 b, u32 c, u32 d)
-{
-  abort();
-}
 
 u32 (*Z_coreZ_coreZ2EcwdZ_iv)();
 u32 core_cwd()
@@ -36,6 +29,5 @@ u32 core_cwd()
 }
 
 void init_core() {
-  Z_envZ_abortZ_viiii = &env_abort;
   Z_coreZ_coreZ2EcwdZ_iv = &core_cwd;
 }
