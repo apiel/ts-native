@@ -17,6 +17,11 @@ const hFile = join(tmpFolder, 'lib.h');
 const coreFolder = join(__dirname, '..', 'core');
 const binFile = join(buildFolder, 'main');
 
+const coreDef = [
+    'Z_coreZ_coreZ',
+    'Z_ioZ_coreZ',
+]
+
 start();
 
 async function start() {
@@ -36,12 +41,11 @@ async function start() {
 function getDefines() {
     let defines = [];
     const hContent = readFileSync(hFile).toString();
-    if (hContent.includes('Z_coreZ_coreZ')) {
-        defines = [...defines, '-D', 'INC_CORE_CORE'];
-    }
-    if (hContent.includes('Z_ioZ_coreZ')) {
-        defines = [...defines, '-D', 'INC_CORE_IO'];
-    }
+    coreDef.forEach(def => {
+        if (hContent.includes(def)) {
+            defines = [...defines, '-D', `INC_${def.toUpperCase()}`];
+        }
+    });
     log('defines:', defines);
     return defines;
 }

@@ -3,10 +3,10 @@
 #include "./lib.h"
 
 #include "./mem.h"
-#ifdef INC_CORE_CORE
+#ifdef INC_Z_COREZ_COREZ
 #include "./core.h"
 #endif
-#ifdef INC_CORE_IO
+#ifdef INC_Z_IOZ_COREZ
 #include "./core_io.h"
 #endif
 
@@ -22,10 +22,10 @@ int main(int argc, char **argv)
   init_mem();
   Z_envZ_abortZ_viiii = &env_abort;
 
-  #ifdef INC_CORE_CORE
+  #ifdef INC_Z_COREZ_COREZ
   init_core();
   #endif
-  #ifdef INC_CORE_IO
+  #ifdef INC_Z_IOZ_COREZ
   init_core_io();
   #endif
 
