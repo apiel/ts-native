@@ -1,5 +1,5 @@
 import { argv, cwd } from 'process';
-import { join } from 'path';
+import { join, extname } from 'path';
 import { log } from 'logol';
 import { readdirSync, copyFileSync, rmdirSync } from 'fs';
 
@@ -13,7 +13,7 @@ const buildFolder = join(cwd(), 'build');
 const tmpFolder = join(buildFolder, 'tmp');
 const wasmFile = join(tmpFolder, 'lib.wasm');
 const cFile = join(tmpFolder, 'lib.c');
-const wasmFolder = join(__dirname, '..', 'wasm');
+const coreFolder = join(__dirname, '..', 'core');
 const binFile = join(buildFolder, 'main');
 
 start();
@@ -24,20 +24,21 @@ async function start() {
         `${entryPoint} -b ${wasmFile} --sourceMap --optimize`.split(' '),
     );
     await shell('wasm2c', `${wasmFile} -o ${cFile}`.split(' '));
-    copyWasm();
-    await shell(
-        'cc',
-        `-o ${binFile} main.c lib.c wasm-rt-impl.c`.split(' '),
-        tmpFolder,
-    );
+    const cFiles = copyCore();
+    await shell('cc', ['-o', binFile, cFile, ...cFiles], tmpFolder);
     if (!argv.includes('--skip-rm')) {
         rmdirSync(tmpFolder, { recursive: true });
     }
 }
 
-function copyWasm() {
-    const files = readdirSync(wasmFolder);
+function copyCore() {
+    const files = readdirSync(coreFolder);
+    const cFiles = [];
     files.forEach((file) => {
-        copyFileSync(join(wasmFolder, file), join(tmpFolder, file));
+        if (extname(file) === '.c') {
+            cFiles.push(file);
+        }
+        copyFileSync(join(coreFolder, file), join(tmpFolder, file));
     });
+    return cFiles;
 }

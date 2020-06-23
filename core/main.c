@@ -1,10 +1,11 @@
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h> // strlen
 #include <unistd.h> // cwd
 #include <linux/limits.h> // cwd
 
 #include "lib.h"
+
+#include "./core_io.h"
 
 wasm_rt_memory_t *mem;
 
@@ -38,25 +39,14 @@ u32 core_cwd()
   return 0;
 }
 
-// core.print('hello')
-void (*Z_ioZ_coreZ2EprintZ_vii)(u32, u32);
-void core_print(u32 ptr, u32 len)
-{
-  const uint8_t *buf = (u8 *)mem->data + (u32)(ptr);
-  printf("%.*s", len, buf);
-}
-
 int main(int argc, char **argv)
 {
   init();
+  init_core_io();
   mem = WASM_RT_ADD_PREFIX(Z_memory);
 
   Z_envZ_abortZ_viiii = &env_abort;
   Z_coreZ_coreZ2EcwdZ_iv = &core_cwd;
-  Z_ioZ_coreZ2EprintZ_vii = &core_print;
 
-  u32 result = Z_mainZ_iii(1, 4);
-  printf("res %u\n", result);
-
-  return 0;
+  return Z_mainZ_iii(1, 4);
 }

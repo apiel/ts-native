@@ -5,12 +5,13 @@
   "author": "Alexandre Piel <alexandre.piel@gmail.com>",
   "license": "MIT",
   "bin": "dist/index.js",
+  "main": "std/index.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/apiel/isomor"
   },
   "scripts": {
-    "get-wasm": "wget https://raw.githubusercontent.com/WebAssembly/wabt/master/wasm2c/wasm-rt-impl.c -P wasm/ && wget https://raw.githubusercontent.com/WebAssembly/wabt/master/wasm2c/wasm-rt-impl.h -P wasm/ && wget https://raw.githubusercontent.com/WebAssembly/wabt/master/wasm2c/wasm-rt.h -P wasm/",
+    "get-wasm": "wget https://raw.githubusercontent.com/WebAssembly/wabt/master/wasm2c/wasm-rt-impl.c -P core/ && wget https://raw.githubusercontent.com/WebAssembly/wabt/master/wasm2c/wasm-rt-impl.h -P core/ && wget https://raw.githubusercontent.com/WebAssembly/wabt/master/wasm2c/wasm-rt.h -P core/",
     "prepublishOnly": "yarn build",
     "demo": "yarn start ./demo/index.ts",
     "start": "ts-node src/index.ts",
