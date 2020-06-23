@@ -1,6 +1,9 @@
 - need docker
 - ? xxd -i build/tmp/lib.wasm
 
+- tcpd:
+    http://www.cs.tau.ac.il/~eddiea/samples/TCP-Simple/tcp-simple-server.c.html
+
 - rs:
 ```sh
 bindgen lib.h -o lib.rs

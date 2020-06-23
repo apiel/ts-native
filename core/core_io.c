@@ -10,6 +10,14 @@ void core_print(u32 ptr, u32 len)
   printf("%.*s", len, buf);
 }
 
+void (*Z_ioZ_coreZ2EiprintZ_vi)(u32);
+void core_iprint(u32 i)
+{
+  printf("%u\n", i);
+}
+
+
 void init_core_io() {
   Z_ioZ_coreZ2EprintZ_vii = &core_print;
+  Z_ioZ_coreZ2EiprintZ_vi = &core_iprint;
 }
