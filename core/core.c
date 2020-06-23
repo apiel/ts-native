@@ -20,7 +20,7 @@ u32 core_cwd()
     // printf("Current working dir: %s\n", cwd);
     // char *ret = "RET core_abc";
     int len = strlen(cwd);
-    u32 ptr = WASM_RT_ADD_PREFIX(Z___allocZ_iii)((len + 1) << 1, 1);
+    u32 ptr = mem_alloc((len + 1) << 1, 1);
 
     uint8_t *buf = (u8 *)mem->data + (u32)(ptr);
     buf[0] = len;
@@ -29,7 +29,7 @@ u32 core_cwd()
     // return ptr;
 
     // seem we need this to ensure it not removed from mem
-    u32 ref = WASM_RT_ADD_PREFIX(Z___retainZ_ii)(ptr);
+    u32 ref = mem_retain(ptr);
     return ref;
   }
   return 0;
