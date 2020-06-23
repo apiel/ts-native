@@ -22,7 +22,7 @@ u32 core_cwd()
     int len = strlen(cwd);
     u32 ptr = WASM_RT_ADD_PREFIX(Z___allocZ_iii)((len + 1) << 1, 1);
 
-    uint8_t *buf = (u8 *)(WASM_RT_ADD_PREFIX(Z_memory))->data + (u32)(ptr);
+    uint8_t *buf = (u8 *)mem->data + (u32)(ptr);
     buf[0] = len;
     buf++;
     strcpy(buf, cwd);
