@@ -1,5 +1,6 @@
-#include "lib.h"
+#include "./lib.h"
 
+#include "./mem.h"
 #include "./core.h"
 #include "./core_io.h"
 
@@ -9,6 +10,7 @@
 int main(int argc, char **argv)
 {
   init();
+  init_mem();
   init_core();
   init_core_io();
   // mem = WASM_RT_ADD_PREFIX(Z_memory);

@@ -3,7 +3,8 @@
 #include <unistd.h> // cwd
 #include <linux/limits.h> // cwd
 
-#include "lib.h"
+#include "./lib.h"
+#include "./mem.h"
 
 void (*Z_envZ_abortZ_viiii)(u32, u32, u32, u32);
 void env_abort(u32 a, u32 b, u32 c, u32 d)
