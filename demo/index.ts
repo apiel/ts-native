@@ -16,7 +16,7 @@ export function main(argc: i32, argsRef: i32): i32 {
         print(`setTimeout cb\n`);
     }, 2000);
     print(`after setTimeout\n`);
-    clearTimeout(id);
+    // clearTimeout(id);
 
     return 0;
 }
