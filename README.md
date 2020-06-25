@@ -48,7 +48,7 @@ export function main(argc: i32, argsRef: i32): i32 {
 }
 ```
 
-The TypeScript syntax is tight to AssemblyScript and differ a little but from NodeJs implementation.
+The TypeScript syntax is tight to AssemblyScript and differ a little bit from NodeJs implementation.
 
 > The first peculiarity one is going to notice when writing AssemblyScript is that its [basic types](https://www.assemblyscript.org/types.html) are a bit different from TypeScript's in that it uses WebAssembly's more specific integer and floating point types, with JavaScript's number merely an alias of WebAssembly's f64.
 
