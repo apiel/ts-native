@@ -5,15 +5,6 @@
 #include "./lib.h"
 #include "./mem.h"
 
-// #define LIKELY(x) __builtin_expect(!!(x), 1)
-// #define TRAP(x) (wasm_rt_trap(WASM_RT_TRAP_##x), 0)
-
-// #define CALL_INDIRECT(table, t, ft, x, ...)          \
-//   (LIKELY((x) < table.size && table.data[x].func &&  \
-//           table.data[x].func_type == func_types[ft]) \
-//        ? ((t)table.data[x].func)(__VA_ARGS__)        \
-//        : TRAP(CALL_INDIRECT))
-
 /* call back function - inform the user the time has expired */
 void timeout_cb()
 {
@@ -50,8 +41,8 @@ u32 core_set_timeout(u32 cb, u32 ms)
   // buf = (void (*)(void *))table->data + cb;
   // (*buf)();
 
-  // CALL_INDIRECT(table, void (*)(void), 1, 0);
-  ((void (*)(void))table->data[1].func)();
+  CALL_INDIRECT(table, void (*)(void), cb);
+  // ((void (*)(void))table->data[cb].func)();
 
   // pthread_t thread_id;
   // int seconds = 3;
