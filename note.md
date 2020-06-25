@@ -11,3 +11,4 @@ Nice project to transpile TS 2 C:
 - https://github.com/andrei-markeev/ts2c
 - https://github.com/NectarJS/nectarjs
 
+- implement stderr `fprintf(stderr, "%s", "Stack overflow!\n");`

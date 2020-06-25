@@ -46,6 +46,8 @@ export function main(argc: i32, argsRef: i32): i32 {
 }
 ```
 
+> The first peculiarity one is going to notice when writing AssemblyScript is that its [basic types](https://www.assemblyscript.org/types.html) are a bit different from TypeScript's in that it uses WebAssembly's more specific integer and floating point types, with JavaScript's number merely an alias of WebAssembly's f64.
+
 Run the compiler:
 
 ```sh
@@ -56,4 +58,31 @@ Finally run the application:
 
 ```sh
 ./build/main
+```
+
+## Standard library
+
+AssemblyScript is only providing basic TypeScript logic but doesn't provide any feature to access native feature from the system. To solve this ts-native is providing a standard library:
+
+### ts-native/core
+
+```ts
+// return the current working directory
+function cwd(): string;
+```
+
+### ts-native/io
+
+```ts
+// print string to stdout
+function print(str: string): void;
+```
+
+### ts-native/time
+
+```ts
+// calls a function or evaluates an expression after a specified number of milliseconds.
+function setTimeout(cb: () => void, ms: i32): i32;
+// clears a timer set with the setTimeout() method.
+function clearTimeout(id: i32): void;
 ```
