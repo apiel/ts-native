@@ -25,15 +25,18 @@ int main(int argc, char **argv)
   init_mem();
   Z_envZ_abortZ_viiii = &env_abort;
 
-  #ifdef INC_Z_COREZ_COREZ
+#ifdef INC_Z_COREZ_COREZ
   init_core();
-  #endif
-  #ifdef INC_Z_IOZ_COREZ
+#endif
+#ifdef INC_Z_IOZ_COREZ
   init_core_io();
-  #endif
-  #ifdef INC_Z_TIMEZ_COREZ
+#endif
+#ifdef INC_Z_TIMEZ_COREZ
   init_core_time();
-  #endif
+#endif
 
-  return Z_mainZ_iii(argc, 1);
+  Z_mainZ_iii(argc, 1);
+
+  join_timers();
+  return 0;
 }
