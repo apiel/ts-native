@@ -15,7 +15,7 @@
     "prepublishOnly": "yarn build",
     "demo": "yarn start ./demo/index.ts",
     "start": "ts-node src/index.ts",
-    "prebuild": "get-wasm && rm -rf dist/",
+    "prebuild": "yarn get-wasm && rm -rf dist/",
     "build": "tsc -p tsconfig.json && chmod +x dist/index.js"
   },
   "dependencies": {
