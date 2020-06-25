@@ -4,33 +4,10 @@
 - tcpd:
     http://www.cs.tau.ac.il/~eddiea/samples/TCP-Simple/tcp-simple-server.c.html
 
-- rs:
-```sh
-bindgen lib.h -o lib.rs
-```
-main.rs
-```rs
-#![allow(non_upper_case_globals)]
-#![allow(non_camel_case_types)]
-#![allow(non_snake_case)]
 
-include!("lib.rs");
 
-fn main() {
-    unsafe {
-        init();
-    }
-}
-```
-Cargo.toml
-```toml
-[package]
-name = "main"
-version = "0.0.1"
-edition = "2018"
-default-run = "main"
+Nice project to transpile TS 2 C:
 
-[[bin]]
-name = "main"
-path = "main.rs"
-```
+- https://github.com/andrei-markeev/ts2c
+- https://github.com/NectarJS/nectarjs
+

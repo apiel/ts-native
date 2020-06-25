@@ -7,7 +7,9 @@
 #include "./lib.h"
 #include "./mem.h"
 
-#define MAX_TIMER 10
+#ifndef MAX_TIMER_COUNT
+#define MAX_TIMER_COUNT 10
+#endif
 
 struct timer_thread {
     pthread_t thread;
@@ -16,10 +18,10 @@ struct timer_thread {
     u32 ms;
 };
 
-struct timer_thread timer_threads[MAX_TIMER];
+struct timer_thread timer_threads[MAX_TIMER_COUNT];
 
 int8_t get_free_timer_thread_index() {
-    for (uint8_t i = 0; i < MAX_TIMER; i++) {
+    for (uint8_t i = 0; i < MAX_TIMER_COUNT; i++) {
         if (!timer_threads[i].active) {
             return i;
         }
@@ -28,7 +30,7 @@ int8_t get_free_timer_thread_index() {
 }
 
 void join_timers() {
-    for (uint8_t i = 0; i < MAX_TIMER; i++) {
+    for (uint8_t i = 0; i < MAX_TIMER_COUNT; i++) {
         if (timer_threads[i].active) {
             pthread_join(timer_threads[i].thread, NULL);
         }

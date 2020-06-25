@@ -14,6 +14,9 @@ export function main(argc: i32, argsRef: i32): i32 {
 
     const id = setTimeout(function cb() {
         print(`setTimeout cb\n`);
+        // setTimeout(function cb2() {
+        //     print(`setTimeout cb2\n`);
+        // }, 1000);
     }, 2000);
     print(`after setTimeout\n`);
     // clearTimeout(id);
