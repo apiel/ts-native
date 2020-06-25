@@ -1,8 +1,10 @@
 # ts-native
 
-Ts-native is a wrapper around [AssemblyScript](https://www.assemblyscript.org/) and [wasm2c](https://github.com/WebAssembly/wabt/tree/master/wasm2c) to generate some native applications from TypeScript. It first compile TypeScript to WASM, then WASM to C and finally from C to native machine code.
+Ts-native is a wrapper around [AssemblyScript](https://www.assemblyscript.org/) and [wasm2c](https://github.com/WebAssembly/wabt/tree/master/wasm2c) to generate some native applications from TypeScript.
 
 AssemblyScript is a an active project, with a big community around, so seem to be the right project to build a tool. All the TS logic is handle by AssemblyScript and all the memory management base on WebAssembly. Finally, `wasm2c` from `wabt` was build by the WebAssembly team, therefor seem to reliable tool to convert wasm files to C. Ts-native is simply putting all those tools together and bring some extra interface to access native feature like file system manipulation or creating some TCP communication...
+
+The way it work is pretty simple, it first compile TypeScript to WASM with AssemblyScript, then WASM to C with wasm2c and finally from C to native machine code with gcc.
 
 > Right now, it is only working on Linux.
 
@@ -45,6 +47,8 @@ export function main(argc: i32, argsRef: i32): i32 {
     return 0;
 }
 ```
+
+The TypeScript syntax is tight to AssemblyScript and differ a little but from NodeJs implementation.
 
 > The first peculiarity one is going to notice when writing AssemblyScript is that its [basic types](https://www.assemblyscript.org/types.html) are a bit different from TypeScript's in that it uses WebAssembly's more specific integer and floating point types, with JavaScript's number merely an alias of WebAssembly's f64.
 
