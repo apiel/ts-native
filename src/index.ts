@@ -17,19 +17,20 @@ const hFile = join(tmpFolder, 'lib.h');
 const coreFolder = join(__dirname, '..', 'core');
 const binFile = join(buildFolder, 'main');
 
-const coreDef = ['Z_coreZ_coreZ', 'Z_ioZ_coreZ'];
+const ldFlags = ['-pthread'];
+const coreDef = ['Z_coreZ_coreZ', 'Z_ioZ_coreZ', 'Z_timeZ_coreZ'];
 
 start();
 
 async function start() {
     await shell(
         'asc',
-        `${entryPoint} -b ${wasmFile} --sourceMap --optimize`.split(' '),
+        `${entryPoint} -b ${wasmFile} --exportTable --sourceMap --optimize`.split(' '),
     );
     await shell('wasm2c', `${wasmFile} -o ${cFile}`.split(' '));
     const cFiles = copyCore();
     const defines = getDefines();
-    await shell('cc', [...defines, '-o', binFile, cFile, ...cFiles], tmpFolder);
+    await shell('cc', [...ldFlags, ...defines, '-o', binFile, cFile, ...cFiles], tmpFolder);
     if (!argv.includes('--skip-rm')) {
         rmdirSync(tmpFolder, { recursive: true });
     }

@@ -4,6 +4,7 @@
 #include "./lib.h"
 
 wasm_rt_memory_t *mem;
+wasm_rt_table_t * table;
 
 void init_mem();
 u32 mem_alloc(u32 size, u32 type);

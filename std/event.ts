@@ -1,3 +1,4 @@
+// deprecated ?
 export function event(id: i32, val: i32): void {
 
 }
