@@ -14,7 +14,7 @@ export function main(argc: i32, argsRef: i32): i32 {
 
     setTimeout(function cb() {
         print(`setTimeout cb\n`);
-    }, 1000);
+    }, 2000);
 
     return 0;
 }

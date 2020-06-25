@@ -5,29 +5,18 @@
 #include "./lib.h"
 #include "./mem.h"
 
-/* call back function - inform the user the time has expired */
-void timeout_cb()
+struct set_timeout_args
 {
-  printf("=== your time is up ===\n");
-}
+  u32 cb;
+  u32 ms;
+};
 
-/* Go to sleep for a period of seconds */
-static void *g_start_timer(void *args)
+static void *timeout_timer(void *args_ptr)
 {
-  /* function pointer */
-  void (*function_pointer)();
+  struct set_timeout_args * args = args_ptr;
 
-  /* cast the seconds passed in to int and
-     * set this for the period to wait */
-  int seconds = *((int *)args);
-  printf("go to sleep for %d\n", seconds);
-
-  /* assign the address of the cb to the function pointer */
-  function_pointer = timeout_cb;
-
-  sleep(seconds);
-  /* call the cb to inform the user time is out */
-  (*function_pointer)();
+  usleep(args->ms * 1000);
+  CALL_INDIRECT(table, void (*)(void), args->cb);
 
   pthread_exit(NULL);
 }
@@ -35,26 +24,16 @@ static void *g_start_timer(void *args)
 u32 (*Z_timeZ_coreZ2EsetTimeoutZ_iii)(u32, u32);
 u32 core_set_timeout(u32 cb, u32 ms)
 {
-  printf("call setTimeout %u\n", cb);
+  struct set_timeout_args args;
+  args.cb = cb;
+  args.ms = ms;
 
-  // void (*buf)();
-  // buf = (void (*)(void *))table->data + cb;
-  // (*buf)();
+  pthread_t thread_id;
+  int rc = pthread_create(&thread_id, NULL, timeout_timer, (void *)&args);
+  if (rc)
+    printf("=== Failed to create thread\n");
 
-  CALL_INDIRECT(table, void (*)(void), cb);
-  // ((void (*)(void))table->data[cb].func)();
-
-  // pthread_t thread_id;
-  // int seconds = 3;
-  // int rc;
-
-  // rc = pthread_create(&thread_id, NULL, g_start_timer, (void *)&seconds);
-  // if (rc)
-  //   printf("=== Failed to create thread\n");
-
-  // pthread_join(thread_id, NULL);
-
-  // printf("=== End of Program - all threads in ===\n");
+  pthread_join(thread_id, NULL);
   return 123;
 }
 
