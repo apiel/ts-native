@@ -1,4 +1,4 @@
-import { print } from '../std/io';
+import { print, printError } from '../std/io';
 import { cwd } from '../std/core';
 import { setTimeout, clearTimeout } from '../std/time';
 
@@ -20,6 +20,8 @@ export function main(argc: i32, argsRef: i32): i32 {
     }, 2000);
     print(`after setTimeout\n`);
     // clearTimeout(id);
+
+    printError(`print error\n`);
 
     return 0;
 }
