@@ -1,7 +1,7 @@
 import { print, printError } from '../std/io';
 import { cwd } from '../std/core';
 import { setTimeout, clearTimeout } from '../std/time';
-import { create, listen } from '../std/socket';
+import { create, listen, close } from '../std/socket';
 
 // function cb(): void {
 //     print('callback\n');
@@ -26,5 +26,6 @@ export function main(argc: i32, argsRef: i32): i32 {
     print('socket ret ' + socketid.toString() + '\n');
     listen(socketid, 8080);
 
+    // close(socketid);
     return 0;
 }

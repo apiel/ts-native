@@ -38,6 +38,11 @@ int main(int argc, char **argv) {
 
     Z_mainZ_iii(argc, 1);
 
+#ifdef INC_Z_TIMEZ_COREZ
     join_timers();
+#endif
+#ifdef INC_Z_SOCKETZ_COREZ
+    join_servers();
+#endif
     return 0;
 }
