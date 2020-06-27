@@ -18,14 +18,14 @@ const coreFolder = join(__dirname, '..', 'core');
 const binFile = join(buildFolder, 'main');
 
 const ldFlags = ['-pthread'];
-const coreDef = ['Z_coreZ_coreZ', 'Z_ioZ_coreZ', 'Z_timeZ_coreZ'];
+const coreDef = ['Z_coreZ_coreZ', 'Z_ioZ_coreZ', 'Z_timeZ_coreZ', 'Z_socketZ_coreZ'];
 
 start();
 
 async function start() {
     await shell(
         'asc',
-        `${entryPoint} -b ${wasmFile} --exportTable --sourceMap --optimize`.split(' '),
+        `${entryPoint} -b ${wasmFile} --exportTable --optimize`.split(' '), // -t lib.wat
     );
     await shell('wasm2c', `${wasmFile} -o ${cFile}`.split(' '));
     const cFiles = copyCore();

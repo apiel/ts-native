@@ -11,6 +11,9 @@
 #ifdef INC_Z_TIMEZ_COREZ
 #include "./core_time.h"
 #endif
+#ifdef INC_Z_SOCKETZ_COREZ
+#include "./core_socket.h"
+#endif
 
 void (*Z_envZ_abortZ_viiii)(u32, u32, u32, u32);
 void env_abort(u32 a, u32 b, u32 c, u32 d) { abort(); }
@@ -28,6 +31,9 @@ int main(int argc, char **argv) {
 #endif
 #ifdef INC_Z_TIMEZ_COREZ
     init_core_time();
+#endif
+#ifdef INC_Z_SOCKETZ_COREZ
+    init_core_socket();
 #endif
 
     Z_mainZ_iii(argc, 1);
